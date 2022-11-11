@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TextField from '@mui/material/TextField'
-import { Autocomplete, AutocompleteProps } from "@mui/material";
-import { queryAllByAltText } from "@testing-library/react";
+import { Autocomplete } from "@mui/material";
 import axios from "axios";
 
 
@@ -26,24 +25,26 @@ export type Option = {
 }
 
 interface MyTextFieldProps {
-    setSelectedOption:(opt:Option|undefined)=>void
+    setSelectedOption:(opt:Option|undefined)=>void,
+    setError:(error:string)=>void
 }
 
 
 
 
-const MyTextField = ({setSelectedOption}:MyTextFieldProps) => {
+const MyTextField = ({setSelectedOption,setError}:MyTextFieldProps) => {
 
     const [query, setQuery] = useState('')
     const [options, setOptions] = useState<Option[]>([])
     
 
     useEffect(() => {
+        setError('')
         if (query === '') return
         const timer = setTimeout(()=>{
             axios.get<cityResponse[]>('/locations/v1/cities/search', {
                 params: {
-                    apikey: 'SKnQENTsR7VAr5pGpvzdvlRvwZw6PC2F',
+                    apikey: process.env.REACT_APP_API_KEY,
                     q: query,
                 }
     
@@ -58,9 +59,8 @@ const MyTextField = ({setSelectedOption}:MyTextFieldProps) => {
                     }
                 })
                 setOptions(citiesData)
-                console.log(citiesData)
             }).catch(e => {
-                console.log(e)
+                setError("something went wrong")
             })
         },500)
 
