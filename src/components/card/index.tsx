@@ -18,7 +18,7 @@ export default function BasicCard({ cityName, countryLabel, temperature, phrase,
             <Chip label={countryLabel} sx={{ margin: '0px 0px 30px 10px', width: '50px' }} color='primary'></Chip>
             <div></div>
             <Typography variant='h1' sx={{ display: 'inline', position: 'relative' }}>
-                {temperature}<span style={{ position: 'absolute', fontSize: 40, left: 110, top: 9 }}>°C</span>
+                {temperature}<span style={{ position: 'absolute', fontSize: 40, left: 110, top: 9 }}>°F</span>
             </Typography>
             <img src={`https://developer.accuweather.com/sites/default/files/${iconNumber?.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}-s.png`} alt='icon' style={{ display: 'block' }} width='125px'></img>
             <Typography sx={{ textTransform: 'uppercase', color: 'gray', marginLeft:'20px' }}>
